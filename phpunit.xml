@@ -12,7 +12,9 @@
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <file>./src/SaveRelationsBehavior.php</file>
+            <include>
+                <file>./src/SaveRelationsBehavior.php</file>
+            </include>
         </whitelist>
     </filter>
 </phpunit>
