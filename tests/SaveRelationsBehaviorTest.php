@@ -2,7 +2,7 @@
 
 namespace tests;
 
-use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use p4it\saveRelationsBehavior\SaveRelationsBehavior;
 use PHPUnit\Framework\TestCase;
 use tests\models\Company;
 use tests\models\DummyModel;

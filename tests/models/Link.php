@@ -2,7 +2,7 @@
 
 namespace tests\models;
 
-use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use p4it\saveRelationsBehavior\SaveRelationsBehavior;
 
 class Link extends \yii\db\ActiveRecord
 {

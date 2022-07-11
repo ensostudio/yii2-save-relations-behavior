@@ -46,7 +46,7 @@ Configuring
 Configure model as follows
 
 ```php
-use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use p4it\saveRelationsBehavior\SaveRelationsBehavior;
 
 class Project extends \yii\db\ActiveRecord
 {

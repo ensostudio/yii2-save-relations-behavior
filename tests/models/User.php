@@ -2,8 +2,8 @@
 
 namespace tests\models;
 
-use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
-use lhs\Yii2SaveRelationsBehavior\SaveRelationsTrait;
+use p4it\saveRelationsBehavior\SaveRelationsBehavior;
+use p4it\saveRelationsBehavior\SaveRelationsTrait;
 
 class User extends \yii\db\ActiveRecord
 {

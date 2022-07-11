@@ -33,7 +33,7 @@
     },
     "autoload": {
         "psr-4": {
-            "lhs\\Yii2SaveRelationsBehavior\\": "src/"
+            "p4it\\saveRelationsBehavior\\": "src/"
         }
     },
     "config": {
