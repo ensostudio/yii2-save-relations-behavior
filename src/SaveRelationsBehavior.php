@@ -46,6 +46,12 @@ class SaveRelationsBehavior extends Behavior
     private array $_relationsCascadeDelete = [];
 
     /**
+     * @var bool relations attributes now honor the `safe` validation rule
+     * @since 2.0.0
+     */
+    public bool $onlySafeAttributes = false;
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -127,7 +133,7 @@ class SaveRelationsBehavior extends Behavior
     {
         /** @var BaseActiveRecord $owner */
         $owner = $this->owner;
-        if (in_array($name, $this->_relations) && in_array($name, $owner->safeAttributes())) {
+        if (in_array($name, $this->_relations) && ($this->onlySafeAttributes === false || in_array($name, $owner->safeAttributes()))) {
             Yii::debug("Setting {$name} relation value", __METHOD__);
             /** @var ActiveQuery $relation */
             $relation = $owner->getRelation($name);
