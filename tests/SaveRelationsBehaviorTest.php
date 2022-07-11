@@ -2,10 +2,10 @@
 
 namespace tests;
 
-use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use p4it\saveRelationsBehavior\SaveRelationsBehavior;
+use PHPUnit\Framework\TestCase;
 use tests\models\Company;
 use tests\models\DummyModel;
-use tests\models\DummyModelParent;
 use tests\models\Link;
 use tests\models\Project;
 use tests\models\ProjectLink;
@@ -18,16 +18,16 @@ use yii\base\Model;
 use yii\db\Migration;
 use yii\helpers\VarDumper;
 
-class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
+class SaveRelationsBehaviorTest extends TestCase
 {
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupDbData();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $db = Yii::$app->getDb();
         $db->createCommand()->dropTable('project_user')->execute();
@@ -58,59 +58,59 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
 
         // Company
         $db->createCommand()->createTable('company', [
-            'id'   => $migration->primaryKey(),
+            'id' => $migration->primaryKey(),
             'name' => $migration->string()->notNull()->unique()
         ])->execute();
 
         // User
         $db->createCommand()->createTable('user', [
-            'id'         => $migration->primaryKey(),
+            'id' => $migration->primaryKey(),
             'company_id' => $migration->integer()->notNull(),
-            'username'   => $migration->string()->notNull()->unique()
+            'username' => $migration->string()->notNull()->unique()
         ])->execute();
 
         // User profile
         $db->createCommand()->createTable('user_profile', [
             'user_id' => $migration->primaryKey(),
-            'bio'     => $migration->text(),
+            'bio' => $migration->text(),
         ])->execute();
 
         // Project
         $db->createCommand()->createTable('project', [
-            'id'         => $migration->primaryKey(),
-            'name'       => $migration->string()->notNull(),
+            'id' => $migration->primaryKey(),
+            'name' => $migration->string()->notNull(),
             'company_id' => $migration->integer()->notNull(),
         ])->execute();
 
         $db->createCommand()->createIndex('company_id-name', 'project', 'company_id,name', true)->execute();
 
         $db->createCommand()->createTable('link', [
-            'language'     => $migration->string(5)->notNull(),
-            'name'         => $migration->string()->notNull(),
-            'link'         => $migration->string()->notNull(),
+            'language' => $migration->string(5)->notNull(),
+            'name' => $migration->string()->notNull(),
+            'link' => $migration->string()->notNull(),
             'link_type_id' => $migration->integer(),
             'PRIMARY KEY(language, name)'
         ])->execute();
 
         $db->createCommand()->createTable('tags', [
-            'id'   => $migration->primaryKey(),
+            'id' => $migration->primaryKey(),
             'name' => $migration->string()->notNull()->unique()
         ])->execute();
 
         $db->createCommand()->createTable('project_tags', [
             'project_id' => $migration->integer()->notNull(),
-            'tag_id'     => $migration->integer()->notNull(),
-            'order'      => $migration->integer()->notNull()
+            'tag_id' => $migration->integer()->notNull(),
+            'order' => $migration->integer()->notNull()
         ])->execute();
 
         $db->createCommand()->createTable('link_type', [
-            'id'   => $migration->primaryKey(),
+            'id' => $migration->primaryKey(),
             'name' => $migration->string()->notNull()->unique()
         ])->execute();
 
         $db->createCommand()->createTable('project_link', [
-            'language'   => $migration->string(5)->notNull(),
-            'name'       => $migration->string()->notNull(),
+            'language' => $migration->string(5)->notNull(),
+            'name' => $migration->string()->notNull(),
             'project_id' => $migration->integer()->notNull(),
             'PRIMARY KEY(language, name, project_id)'
         ])->execute();
@@ -118,28 +118,28 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
         // Project User
         $db->createCommand()->createTable('project_user', [
             'project_id' => $migration->integer()->notNull(),
-            'user_id'    => $migration->integer()->notNull(),
+            'user_id' => $migration->integer()->notNull(),
             'PRIMARY KEY(project_id, user_id)'
         ])->execute();
 
         // Project Contact
         $db->createCommand()->createTable('project_contact', [
             'project_id' => $migration->integer()->notNull(),
-            'email'      => $migration->string()->notNull(),
-            'phone'      => $migration->string(),
+            'email' => $migration->string()->notNull(),
+            'phone' => $migration->string(),
             'PRIMARY KEY(project_id, email)'
         ])->execute();
 
         // Project Image
         $db->createCommand()->createTable('project_image', [
-            'id'         => $migration->primaryKey(),
+            'id' => $migration->primaryKey(),
             'project_id' => $migration->integer()->notNull(),
-            'path'       => $migration->string()->notNull()
+            'path' => $migration->string()->notNull()
         ])->execute();
 
         // Dummy
         $db->createCommand()->createTable('dummy', [
-            'id'        => $migration->primaryKey(),
+            'id' => $migration->primaryKey(),
             'parent_id' => $migration->integer()
         ])->execute();
 
@@ -206,14 +206,14 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
 
     public function testCannotAttachBehaviorToAnythingButActiveRecord()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
         $model = new Model();
         $model->attachBehavior('saveRelated', SaveRelationsBehavior::className());
     }
 
     public function testUnsupportedRelationProperty()
     {
-        $this->setExpectedException('\yii\base\UnknownPropertyException');
+        $this->expectException('\yii\base\UnknownPropertyException');
         $model = new Project();
         $model->detachBehaviors();
         $model->attachBehavior('saveRelated', new SaveRelationsBehavior(['relations' => ['links' => ['fakeParam' => 'Some value']]]));
@@ -222,7 +222,7 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
 
     public function testTryToSetUndeclaredRelationShouldFail()
     {
-        $this->setExpectedException('\yii\base\InvalidCallException');
+        $this->expectException('\yii\base\InvalidCallException');
         $project = new Project();
         $project->projectUsers = [];
     }
@@ -517,16 +517,16 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
             'Company' => [
                 'name' => 'YiiSoft'
             ],
-            'Link'    => [
+            'Link' => [
                 [
                     'language' => 'en',
-                    'name'     => 'yii',
-                    'link'     => 'http://www.yiiframework.com'
+                    'name' => 'yii',
+                    'link' => 'http://www.yiiframework.com'
                 ],
                 [
                     'language' => 'fr',
-                    'name'     => 'yii',
-                    'link'     => 'http://www.yiiframework.fr'
+                    'name' => 'yii',
+                    'link' => 'http://www.yiiframework.fr'
                 ]
             ]
         ];
@@ -571,7 +571,7 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
                     'path' => '/images/macosx_new.png'
                 ],
                 [
-                    'id'   => 2,
+                    'id' => 2,
                     'path' => '/images/macosx_updated.png'
                 ]
             ]
@@ -626,16 +626,16 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
             'Company' => [
                 'name' => 'NewSoft'
             ],
-            'Link'    => [
+            'Link' => [
                 [
                     'language' => 'en',
-                    'name'     => 'newsoft',
-                    'link'     => 'http://www.newsoft.com'
+                    'name' => 'newsoft',
+                    'link' => 'http://www.newsoft.com'
                 ],
                 [
                     'language' => 'en',
-                    'name'     => 'newsoft',
-                    'link'     => 'http://www.newsoft.co.uk'
+                    'name' => 'newsoft',
+                    'link' => 'http://www.newsoft.co.uk'
                 ]
             ]
         ];
@@ -648,6 +648,8 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
          * and add an error to the related relational record.
          * Anyway, the exception should be catched to address the correct workflow.
          ***/
+
+        $this->expectException('\yii\db\Exception');
         try {
             $project->save();
         } catch (\Exception $e) {
@@ -669,11 +671,11 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
             'Company' => [
                 'name' => 'YiiSoft'
             ],
-            'Link'    => [
+            'Link' => [
                 [
                     'language' => 'en',
-                    'name'     => 'yii',
-                    'link'     => 'http://www.yiiframework.ru'
+                    'name' => 'yii',
+                    'link' => 'http://www.yiiframework.ru'
                 ]
             ]
         ];
@@ -686,13 +688,13 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
             'Link' => [
                 [
                     'language' => 'en',
-                    'name'     => 'yii',
-                    'link'     => 'http://www.yiiframework.com'
+                    'name' => 'yii',
+                    'link' => 'http://www.yiiframework.com'
                 ],
                 [
                     'language' => 'fr',
-                    'name'     => 'yii',
-                    'link'     => 'http://www.yiiframework.fr'
+                    'name' => 'yii',
+                    'link' => 'http://www.yiiframework.fr'
                 ]
             ]
         ];
@@ -710,11 +712,11 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
             'Company' => [
                 'name' => 'YiiSoft'
             ],
-            'Link'    => [
+            'Link' => [
                 [
                     'language' => 'en',
-                    'name'     => 'yii',
-                    'link'     => 'Invalid value',
+                    'name' => 'yii',
+                    'link' => 'Invalid value',
                 ]
             ]
         ];
@@ -724,8 +726,8 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
             'Link' => [
                 [
                     'language' => 'en',
-                    'name'     => 'yii',
-                    'link'     => 'http://www.yiiframework.com',
+                    'name' => 'yii',
+                    'link' => 'http://www.yiiframework.com',
                 ]
             ]
         ];
@@ -735,7 +737,7 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
 
     public function testFailToSetScenarioForUnkownRelation()
     {
-        $this->setExpectedException('\yii\base\InvalidArgumentException');
+        $this->expectException('\yii\base\InvalidArgumentException');
         $user = new User();
         $user->setRelationScenario('wrongNameRelation', 'insert');
     }
@@ -750,7 +752,7 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
         ];
         $user->setRelationScenario('userProfile', 'insert');
         $user->userProfile = [
-            'bio'   => "Some great bio",
+            'bio' => "Some great bio",
             'agree' => 1
         ];
         $this->assertEquals(1, $user->userProfile->agree, 'User could not be saved' . VarDumper::dumpAsString($user->errors));
@@ -765,7 +767,7 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Steven Paul Jobs (February 24, 1955 – October 5, 2011) was an American entrepreneur, business magnate, inventor, and industrial designer. He was the chairman, chief executive officer (CEO), and co-founder of Apple Inc.; CEO and majority shareholder of Pixar; a member of The Walt Disney Company\'s board of directors following its acquisition of Pixar; and the founder, chairman, and CEO of NeXT.', $profile->bio, "Profile bio is wrong");
         $data = [
             'User' => [
-                'username'   => 'Someone Else',
+                'username' => 'Someone Else',
                 'company_id' => 1
             ]
         ];
@@ -836,7 +838,7 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
     {
         $user = new User();
         $user->setAttributes([
-            'username'   => 'Larry Page',
+            'username' => 'Larry Page',
             'company_id' => 3
         ]);
         $user->userProfile = new UserProfile();
@@ -861,7 +863,7 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
 
     public function testDeleteRelatedWithErrorShouldThrowAnException()
     {
-        $this->setExpectedException('\yii\db\Exception');
+        $this->expectException('\yii\db\Exception');
         $project = Project::findOne(1);
         foreach ($project->projectLinks as $projectLink) {
             $projectLink->blockDelete = true;
@@ -896,8 +898,8 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $company->attachBehavior('saveRelations', [
-            'class'           => SaveRelationsBehavior::className(),
-            'relations'       => ['users'],
+            'class' => SaveRelationsBehavior::className(),
+            'relations' => ['users'],
             'relationKeyName' => SaveRelationsBehavior::RELATION_KEY_RELATION_NAME
         ]);
 
@@ -930,7 +932,7 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('links', $oldRelations);
         $this->assertCount(2, $oldRelations['links']);
         $oldLinks = $project->getOldRelation('links');
-        $this->assertInternalType('array', $oldLinks);
+        $this->assertIsArray($oldLinks);
         $this->assertEquals($oldLinks[0]->language, 'fr');
         $this->assertEquals($oldLinks[0]->name, 'mac_os_x');
         $this->assertEquals($oldLinks[0]->link, 'http://www.apple.com/fr/osx/');
@@ -945,7 +947,7 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($oldCompany->name, 'Apple');
         $this->assertTrue($project->save());
         $oldLinks = $project->getOldRelation('links');
-        $this->assertInternalType('array', $oldLinks);
+        $this->assertIsArray($oldLinks);
         $this->assertEquals($oldLinks[0]->language, 'fr');
         $this->assertEquals($oldLinks[0]->name, 'windows10');
         $this->assertEquals($oldLinks[0]->link, 'https://www.microsoft.com/fr-fr/windows/features');
@@ -993,19 +995,19 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
         $project = Project::findOne(1);
         $data = [
             'Project' => [
-                'name'    => 'Other name',
+                'name' => 'Other name',
                 'company' => [
-                    'name'  => 'New Company',
+                    'name' => 'New Company',
                     'users' => [
                         [
                             'username' => 'New user'
                         ]
                     ]
                 ],
-                'users'   => [
+                'users' => [
                     [
-                        'username'    => 'Another user',
-                        'company'     => 1,
+                        'username' => 'Another user',
+                        'company' => 1,
                         'userProfile' => [
                             'bio' => 'Another user great story'
                         ]
@@ -1033,7 +1035,7 @@ class SaveRelationsBehaviorTest extends \PHPUnit_Framework_TestCase
     {
         $project = Project::findOne(1);
         $project->company = [
-            'id'   => 1,
+            'id' => 1,
             'name' => 'new company'
         ];
         $this->assertTrue($project->save(), 'Project could not be saved ' . VarDumper::dumpAsString($project->getErrors()));

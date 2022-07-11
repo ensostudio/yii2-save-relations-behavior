@@ -6,7 +6,7 @@
 
 namespace tests\models;
 
-use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use p4it\saveRelationsBehavior\SaveRelationsBehavior;
 
 /**
  * DummyModel class

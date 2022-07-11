@@ -1,6 +1,6 @@
 <?php
 
-namespace lhs\Yii2SaveRelationsBehavior;
+namespace p4it\saveRelationsBehavior;
 
 use RuntimeException;
 use Yii;
@@ -26,24 +26,30 @@ use yii\helpers\VarDumper;
 class SaveRelationsBehavior extends Behavior
 {
 
-    const RELATION_KEY_FORM_NAME = 'formName';
-    const RELATION_KEY_RELATION_NAME = 'relationName';
+    public const RELATION_KEY_FORM_NAME = 'formName';
+    public const RELATION_KEY_RELATION_NAME = 'relationName';
 
-    public $relations = [];
-    public $relationKeyName = self::RELATION_KEY_FORM_NAME;
+    public array $relations = [];
+    public string $relationKeyName = self::RELATION_KEY_FORM_NAME;
 
-    private $_relations = [];
-    private $_oldRelationValue = []; // Store initial relations value
-    private $_newRelationValue = []; // Store update relations value
-    private $_relationsToDelete = [];
-    private $_relationsSaveStarted = false;
+    private array $_relations = [];
+    private array $_oldRelationValue = []; // Store initial relations value
+    private array $_newRelationValue = []; // Store update relations value
+    private array $_relationsToDelete = [];
+    private bool $_relationsSaveStarted = false;
 
     /** @var BaseActiveRecord[] $_savedHasOneModels */
-    private $_savedHasOneModels = [];
+    private array $_savedHasOneModels = [];
 
-    private $_relationsScenario = [];
-    private $_relationsExtraColumns = [];
-    private $_relationsCascadeDelete = [];
+    private array $_relationsScenario = [];
+    private array $_relationsExtraColumns = [];
+    private array $_relationsCascadeDelete = [];
+
+    /**
+     * @var bool relations attributes now honor the `safe` validation rule
+     * @since 2.0.0
+     */
+    public bool $onlySafeAttributes = false;
 
     /**
      * @inheritdoc
@@ -127,7 +133,7 @@ class SaveRelationsBehavior extends Behavior
     {
         /** @var BaseActiveRecord $owner */
         $owner = $this->owner;
-        if (in_array($name, $this->_relations) && in_array($name, $owner->safeAttributes())) {
+        if (in_array($name, $this->_relations) && ($this->onlySafeAttributes === false || in_array($name, $owner->safeAttributes()))) {
             Yii::debug("Setting {$name} relation value", __METHOD__);
             /** @var ActiveQuery $relation */
             $relation = $owner->getRelation($name);
