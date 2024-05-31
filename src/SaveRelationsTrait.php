@@ -14,10 +14,10 @@ trait SaveRelationsTrait
     public function load($data, $formName = null)
     {
         $loaded = parent::load($data, $formName);
-        if ($loaded && $this->hasMethod('loadRelations')) {
+        if ($loaded && $this->hasMethod('loadRelationsForSave')) {
             $this->_prepareLoadData($data, $formName);
 
-            $this->loadRelations($data);
+            $this->loadRelationsForSave($data);
         }
         return $loaded;
     }

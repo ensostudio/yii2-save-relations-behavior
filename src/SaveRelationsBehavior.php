@@ -738,6 +738,10 @@ class SaveRelationsBehavior extends Behavior
         }
     }
 
+    public function loadRelationsForSave($data) {
+        $this->loadRelations($data);
+    }
+
     /**
      * Set the scenario for a given relation
      * @param $relationName
