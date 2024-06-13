@@ -295,8 +295,8 @@ class SaveRelationsBehavior extends Behavior
         }
         if (($relationModel instanceof BaseActiveRecord) && is_array($data)) {
             $relationModel->setAttributes($data);
-            if ($relationModel->hasMethod('loadRelations')) {
-                $relationModel->loadRelations($data);
+            if ($relationModel->hasMethod('loadRelationsForSave')) {
+                $relationModel->loadRelationsForSave($data);
             }
 
         }
