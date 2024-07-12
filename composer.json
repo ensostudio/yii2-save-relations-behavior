@@ -1,5 +1,5 @@
 {
-    "name": "luckynvic-kft/yii2-save-relations-behavior",
+    "name": "luckynvic/yii2-save-relations-behavior",
     "description": "Validate and save automatically related Active Record models.",
     "type": "yii2-extension",
     "keywords": [
@@ -21,7 +21,11 @@
         },
         {
             "name": "Péter Papp",
-            "email": "papp.peter@luckynvic.hu"
+            "email": "papp.peter@p4it.hu"
+        },
+        {
+            "name": "Lucky Vic",
+            "email": "luckynvic@gmail.com"
         }
     ],
     "require": {
