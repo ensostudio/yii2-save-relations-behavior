@@ -1,5 +1,5 @@
 {
-    "name": "p4it-kft/yii2-save-relations-behavior",
+    "name": "luckynvic-kft/yii2-save-relations-behavior",
     "description": "Validate and save automatically related Active Record models.",
     "type": "yii2-extension",
     "keywords": [
@@ -21,7 +21,7 @@
         },
         {
             "name": "Péter Papp",
-            "email": "papp.peter@p4it.hu"
+            "email": "papp.peter@luckynvic.hu"
         }
     ],
     "require": {
@@ -33,7 +33,7 @@
     },
     "autoload": {
         "psr-4": {
-            "p4it\\saveRelationsBehavior\\": "src/"
+            "luckynvic\\saveRelationsBehavior\\": "src/"
         }
     },
     "config": {

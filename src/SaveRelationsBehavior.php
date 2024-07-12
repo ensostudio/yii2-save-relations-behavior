@@ -1,6 +1,6 @@
 <?php
 
-namespace p4it\saveRelationsBehavior;
+namespace luckynvic\saveRelationsBehavior;
 
 use RuntimeException;
 use Yii;

@@ -2,7 +2,7 @@
 
 namespace tests;
 
-use p4it\saveRelationsBehavior\SaveRelationsBehavior;
+use luckynvic\saveRelationsBehavior\SaveRelationsBehavior;
 use PHPUnit\Framework\TestCase;
 use tests\models\Company;
 use tests\models\DummyModel;

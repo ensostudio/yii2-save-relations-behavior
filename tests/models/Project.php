@@ -2,8 +2,8 @@
 
 namespace tests\models;
 
-use p4it\saveRelationsBehavior\SaveRelationsBehavior;
-use p4it\saveRelationsBehavior\SaveRelationsTrait;
+use luckynvic\saveRelationsBehavior\SaveRelationsBehavior;
+use luckynvic\saveRelationsBehavior\SaveRelationsTrait;
 
 class Project extends \yii\db\ActiveRecord
 {

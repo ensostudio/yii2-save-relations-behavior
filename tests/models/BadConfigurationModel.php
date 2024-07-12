@@ -6,7 +6,7 @@
 
 namespace tests\models;
 
-use p4it\saveRelationsBehavior\SaveRelationsBehavior;
+use luckynvic\saveRelationsBehavior\SaveRelationsBehavior;
 
 /**
  * DummyModel class

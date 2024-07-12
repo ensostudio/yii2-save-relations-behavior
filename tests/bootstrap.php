@@ -25,7 +25,7 @@ new \yii\console\Application([
             'targets' => [
                 [
                     'class'      => 'yii\log\FileTarget',
-                    'categories' => ['yii\db\*', 'p4it\saveRelationsBehavior\*']
+                    'categories' => ['yii\db\*', 'luckynvic\saveRelationsBehavior\*']
                 ],
             ]
         ],

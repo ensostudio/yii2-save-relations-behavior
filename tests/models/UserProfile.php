@@ -2,7 +2,7 @@
 
 namespace tests\models;
 
-use p4it\saveRelationsBehavior\SaveRelationsBehavior;
+use luckynvic\saveRelationsBehavior\SaveRelationsBehavior;
 
 class UserProfile extends \yii\db\ActiveRecord
 {
