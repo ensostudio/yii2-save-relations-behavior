@@ -4,8 +4,6 @@ Automatically validate and save related ActiveRecord models.
 
 [![Latest Stable Version](https://poser.pugx.org/ensostudio/yii2-save-relations-behavior/v/stable)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior)
 [![Total Downloads](https://poser.pugx.org/ensostudio/yii2-save-relations-behavior/downloads)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior)
-[![Code Coverage](https://scrutinizer-ci.com/g/ensostudio/yii2-save-relations-behavior/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ensostudio/yii2-save-relations-behavior/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/ensostudio/yii2-save-relations-behavior/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ensostudio/yii2-save-relations-behavior/build-status/master)
 [![Latest Unstable Version](https://poser.pugx.org/ensostudio/yii2-save-relations-behavior/v/unstable)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior)
 [![License](https://poser.pugx.org/ensostudio/yii2-save-relations-behavior/license)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior)
 
