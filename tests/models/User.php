@@ -2,8 +2,8 @@
 
 namespace tests\models;
 
-use luckynvic\saveRelationsBehavior\SaveRelationsBehavior;
-use luckynvic\saveRelationsBehavior\SaveRelationsTrait;
+use ensostudio\saveRelationsBehavior\SaveRelationsBehavior;
+use ensostudio\saveRelationsBehavior\SaveRelationsTrait;
 
 class User extends \yii\db\ActiveRecord
 {

@@ -2,7 +2,7 @@
 
 namespace tests\models;
 
-use luckynvic\saveRelationsBehavior\SaveRelationsBehavior;
+use ensostudio\saveRelationsBehavior\SaveRelationsBehavior;
 
 class Company extends \yii\db\ActiveRecord
 {

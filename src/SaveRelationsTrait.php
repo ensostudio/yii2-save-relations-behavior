@@ -1,31 +1,37 @@
 <?php
 
-namespace luckynvic\saveRelationsBehavior;
+namespace ensostudio\saveRelationsBehavior;
 
-use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
+use Yii;
 
 /**
- * @mixin ActiveRecord
- * @mixin SaveRelationsBehavior
+ * @mixin \yii\db\BaseActiveRecord
+ * @method void loadRelationsForSave(array $data)
+ * @property array $relations
  */
 trait SaveRelationsTrait
 {
-    public function load($data, $formName = null)
+    /**
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function load($data, $formName = null): bool
     {
         $loaded = parent::load($data, $formName);
         if ($loaded && $this->hasMethod('loadRelationsForSave')) {
-            $this->_prepareLoadData($data, $formName);
+            $this->prepareLoadData($data, $formName);
 
             $this->loadRelationsForSave($data);
         }
+
         return $loaded;
     }
 
     /**
-     * @param $data
+     * @return void
+     * @throws \yii\base\InvalidConfigException
      */
-    private function _prepareLoadData(&$data, $formName) {
+    private function prepareLoadData(array &$data, ?string $formName)
+    {
         $scope = $formName === null ? $this->formName() : $formName;
 
         foreach ($this->relations as $key => $value) {
@@ -35,19 +41,17 @@ trait SaveRelationsTrait
                 $relationName = $key;
             }
 
-            if(!isset($data[$scope][$relationName])) {
+            if (!isset($data[$scope][$relationName])) {
                 continue;
             }
 
             $relation = $this->getRelation($relationName);
-
-            if(!$relation) {
+            if (!$relation) {
                 continue;
             }
 
-            $modelClass = $relation->modelClass;
-            /** @var ActiveQuery $relationalModel */
-            $relationalModel = new $modelClass;
+            /** @var \yii\db\BaseActiveRecord $relationalModel */
+            $relationalModel = Yii::createObject($relation->modelClass);
             $keyName = $relationalModel->formName();
 
             $data[$keyName] = $data[$scope][$relationName];

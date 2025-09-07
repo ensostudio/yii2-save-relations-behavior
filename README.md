@@ -1,13 +1,13 @@
-Yii2 Active Record Save Relations Behavior
+Yii2 ActiveRecord Save Relations Behavior
 ==========================================
-Automatically validate and save related Active Record models.
+Automatically validate and save related ActiveRecord models.
 
-[![Latest Stable Version](https://poser.pugx.org/la-haute-societe/yii2-save-relations-behavior/v/stable)](https://packagist.org/packages/la-haute-societe/yii2-save-relations-behavior)
-[![Total Downloads](https://poser.pugx.org/la-haute-societe/yii2-save-relations-behavior/downloads)](https://packagist.org/packages/la-haute-societe/yii2-save-relations-behavior)
-[![Code Coverage](https://scrutinizer-ci.com/g/la-haute-societe/yii2-save-relations-behavior/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/la-haute-societe/yii2-save-relations-behavior/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/la-haute-societe/yii2-save-relations-behavior/badges/build.png?b=master)](https://scrutinizer-ci.com/g/la-haute-societe/yii2-save-relations-behavior/build-status/master)
-[![Latest Unstable Version](https://poser.pugx.org/la-haute-societe/yii2-save-relations-behavior/v/unstable)](https://packagist.org/packages/la-haute-societe/yii2-save-relations-behavior)
-[![License](https://poser.pugx.org/la-haute-societe/yii2-save-relations-behavior/license)](https://packagist.org/packages/la-haute-societe/yii2-save-relations-behavior)
+[![Latest Stable Version](https://poser.pugx.org/ensostudio/yii2-save-relations-behavior/v/stable)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior)
+[![Total Downloads](https://poser.pugx.org/ensostudio/yii2-save-relations-behavior/downloads)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior)
+[![Code Coverage](https://scrutinizer-ci.com/g/ensostudio/yii2-save-relations-behavior/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ensostudio/yii2-save-relations-behavior/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/ensostudio/yii2-save-relations-behavior/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ensostudio/yii2-save-relations-behavior/build-status/master)
+[![Latest Unstable Version](https://poser.pugx.org/ensostudio/yii2-save-relations-behavior/v/unstable)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior)
+[![License](https://poser.pugx.org/ensostudio/yii2-save-relations-behavior/license)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior)
 
 
 Features
@@ -15,7 +15,7 @@ Features
 - Both `hasMany()` and `hasOne()` relations are supported
 - Works with existing as well as new related models
 - Compound primary keys are supported
-- Only pure Active Record API is used so it should work with any DB driver
+- Only pure ActiveRecord API is used so it should work with any DB driver
 - As of 1.5.0 release, related records can now be deleted along with the main model
 - ⚠️ As of 2.0.0 release, relations attributes now honor the `safe` validation rule
 
@@ -28,13 +28,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist la-haute-societe/yii2-save-relations-behavior "*"
+php composer.phar require --prefer-dist ensostudio/yii2-save-relations-behavior "*"
 ```
 
 or add
 
 ```
-"la-haute-societe/yii2-save-relations-behavior": "*"
+"ensostudio/yii2-save-relations-behavior": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -46,7 +46,8 @@ Configuring
 Configure model as follows
 
 ```php
-use luckynvic\saveRelationsBehavior\SaveRelationsBehavior;
+use ensostudio\saveRelationsBehavior\SaveRelationsBehavior;
+use ensostudio\saveRelationsBehavior\SaveRelationsTrait;
 
 class Project extends \yii\db\ActiveRecord
 {
@@ -255,7 +256,7 @@ For example, related `projectLinks` records will automatically be deleted when t
 Populate the model and its relations with input data
 ----------------------------------------------------
 This behavior adds a convenient method to load relations models attributes in the same way that the load() method does.
-Simply call the `loadRelations()` with the according input data.
+Simply call the `loadRelationsForSave()` with the according input data.
 
 For instance:
 
@@ -281,10 +282,10 @@ $project = Project::findOne(1);
  *     ]
  * ];
  */
-$project->loadRelations(Yii::$app->request->post());
+$project->loadRelationsForSave(Yii::$app->request->post());
 ```
 
-You can even further simplify the process by adding the `SaveRelationsTrait` to your model. In that case, a call to the `load()` method will also automatically trigger a call to the `loadRelations()` method by using the same data, so you basically won't have to change your controllers.
+You can even further simplify the process by adding the `SaveRelationsTrait` to your model. In that case, a call to the `load()` method will also automatically trigger a call to the `loadRelationsForSave()` method by using the same data, so you basically won't have to change your controllers.
 
 The `relationKeyName` property can be used to decide how the relations data will be retrieved from the data parameter.
 

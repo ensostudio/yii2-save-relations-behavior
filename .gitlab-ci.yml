@@ -1,4 +1,4 @@
-image: juban/yii2-php-56:1.0.0
+image: islamic-network/php74
 
 cache:
   key: "$CI_BUILD_NAME_$CI_BUILD_REF_NAME"

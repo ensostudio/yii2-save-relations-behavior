@@ -1,20 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<phpunit bootstrap="./tests/bootstrap.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         stopOnFailure="false">
-    <testsuites>
-        <testsuite name="LHS Yii2 Save Relations Behavior Test Suite">
-            <directory>./tests</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <include>
-                <file>./src/SaveRelationsBehavior.php</file>
-            </include>
-        </whitelist>
-    </filter>
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+    colors="true"
+    stopOnError="true"
+    bootstrap="tests/bootstrap.php"
+>
+<testsuites>
+    <testsuite name="Yii2 Save Relations Behavior Test Suite">
+        <file>tests/SaveRelationsBehaviorTest.php</file>
+    </testsuite>
+</testsuites>
 </phpunit>

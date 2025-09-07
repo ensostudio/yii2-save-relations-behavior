@@ -1,4 +1,4 @@
-# Yii2 Active Record Save Relations Behavior Change Log
+# Yii2 ActiveRecord Save Relations Behavior Change Log
 
 ## [2.0.0] Unreleased
 

@@ -2,7 +2,7 @@
 
 namespace tests;
 
-use luckynvic\saveRelationsBehavior\SaveRelationsBehavior;
+use ensostudio\saveRelationsBehavior\SaveRelationsBehavior;
 use PHPUnit\Framework\TestCase;
 use tests\models\Company;
 use tests\models\DummyModel;
@@ -48,7 +48,6 @@ class SaveRelationsBehaviorTest extends TestCase
 
     protected function setupDbData()
     {
-        /** @var \yii\db\Connection $db */
         $db = Yii::$app->getDb();
         $migration = new Migration();
 
@@ -510,7 +509,7 @@ class SaveRelationsBehaviorTest extends TestCase
         $this->assertNull($link->link_type_id, "Link type id should be null");
     }
 
-    public function testLoadRelationsShouldSucceed()
+    public function testLoadRelationsForSaveShouldSucceed()
     {
         $project = Project::findOne(1);
         $data = [
@@ -530,7 +529,7 @@ class SaveRelationsBehaviorTest extends TestCase
                 ]
             ]
         ];
-        $project->loadRelations($data);
+        $project->loadRelationsForSave($data);
         $this->assertTrue($project->save(), 'Project could not be saved');
         $this->assertEquals('YiiSoft', $project->company->name, "Company name should be YiiSoft");
         $this->assertCount(2, $project->projectLinks, "Project should have 2 links");
@@ -553,7 +552,7 @@ class SaveRelationsBehaviorTest extends TestCase
                 ]
             ]
         ];
-        $project->loadRelations($data);
+        $project->loadRelationsForSave($data);
         $this->assertTrue($project->save(), 'Project could not be saved');
         $this->assertCount(2, $project->contacts, "Project should have 2 contacts");
         $this->assertEquals($project->contacts[0]->phone, '(999) 999–9999');
@@ -576,7 +575,7 @@ class SaveRelationsBehaviorTest extends TestCase
                 ]
             ]
         ];
-        $project->loadRelations($data);
+        $project->loadRelationsForSave($data);
         $this->assertTrue($project->save(), 'Project could not be saved');
         $this->assertCount(2, $project->images, "Project should have 2 images");
         $this->assertEquals($project->images[0]->id, 2);
@@ -639,7 +638,7 @@ class SaveRelationsBehaviorTest extends TestCase
                 ]
             ]
         ];
-        $project->loadRelations($data);
+        $project->loadRelationsForSave($data);
         /***
          * This test throw an yii\base\Exception due to key conflict for related records.
          * That kind of issue is hard to address because no validation process could prevent that.
@@ -679,7 +678,7 @@ class SaveRelationsBehaviorTest extends TestCase
                 ]
             ]
         ];
-        $project->loadRelations($data);
+        $project->loadRelationsForSave($data);
         $this->assertTrue($project->save(), 'Project could not be saved');
         $this->assertEquals('YiiSoft', $project->company->name, "Company name should be YiiSoft");
         $this->assertCount(1, $project->projectLinks, "Project should have 1 link");
@@ -698,7 +697,7 @@ class SaveRelationsBehaviorTest extends TestCase
                 ]
             ]
         ];
-        $project->loadRelations($data);
+        $project->loadRelationsForSave($data);
         $this->assertTrue($project->save(), 'Project could not be saved');
         $this->assertEquals($project->links[0]->link, 'http://www.yiiframework.com');
         $this->assertEquals($project->links[1]->link, 'http://www.yiiframework.fr');
@@ -720,7 +719,7 @@ class SaveRelationsBehaviorTest extends TestCase
                 ]
             ]
         ];
-        $project->loadRelations($data);
+        $project->loadRelationsForSave($data);
         $this->assertFalse($project->save(), 'Project could be saved');
         $data = [
             'Link' => [
@@ -731,7 +730,7 @@ class SaveRelationsBehaviorTest extends TestCase
                 ]
             ]
         ];
-        $project->loadRelations($data);
+        $project->loadRelationsForSave($data);
         $this->assertTrue($project->save(), 'Project could not be saved');
     }
 
@@ -771,7 +770,7 @@ class SaveRelationsBehaviorTest extends TestCase
                 'company_id' => 1
             ]
         ];
-        $profile->loadRelations($data);
+        $profile->loadRelationsForSave($data);
         $this->assertEquals('Someone Else', $profile->user->username, "User name should be 'Someone Else'");
         $this->assertTrue($profile->user->isNewRecord, "User should be a new record");
         $this->assertEquals(1, $profile->user_id);
@@ -898,7 +897,7 @@ class SaveRelationsBehaviorTest extends TestCase
         ]);
 
         $company->attachBehavior('saveRelations', [
-            'class' => SaveRelationsBehavior::className(),
+            'class' => SaveRelationsBehavior::class,
             'relations' => ['users'],
             'relationKeyName' => SaveRelationsBehavior::RELATION_KEY_RELATION_NAME
         ]);
@@ -910,7 +909,7 @@ class SaveRelationsBehaviorTest extends TestCase
             ]
         ];
 
-        $company->loadRelations($data);
+        $company->loadRelationsForSave($data);
 
         $this->assertTrue($company->save(), 'Company could not be saved');
         $this->assertEquals('NewSoft', $company->name, 'Company\'s name is wrong');
