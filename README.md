@@ -2,11 +2,7 @@ Yii2 ActiveRecord Save Relations Behavior
 ==========================================
 Automatically validate and save related ActiveRecord models.
 
-[![Latest Stable Version](https://poser.pugx.org/ensostudio/yii2-save-relations-behavior/v/stable)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior)
-[![Total Downloads](https://poser.pugx.org/ensostudio/yii2-save-relations-behavior/downloads)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior)
-[![Latest Unstable Version](https://poser.pugx.org/ensostudio/yii2-save-relations-behavior/v/unstable)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior)
-[![License](https://poser.pugx.org/ensostudio/yii2-save-relations-behavior/license)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior)
-
+[![Latest Stable Version](http://poser.pugx.org/ensostudio/yii2-save-relations-behavior/v)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior) [![Total Downloads](http://poser.pugx.org/ensostudio/yii2-save-relations-behavior/downloads)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior) [![Latest Unstable Version](http://poser.pugx.org/ensostudio/yii2-save-relations-behavior/v/unstable)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior) [![License](http://poser.pugx.org/ensostudio/yii2-save-relations-behavior/license)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior) [![PHP Version Require](http://poser.pugx.org/ensostudio/yii2-save-relations-behavior/require/php)](https://packagist.org/packages/ensostudio/yii2-save-relations-behavior)
 
 Features
 --------
